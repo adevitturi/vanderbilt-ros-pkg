@@ -20,7 +20,7 @@
 				 iyy="1" iyz="0"
 				 izz="1"/>
 		</inertial>
-		<visual name="base_visual">
+		<visual>
 			<origin xyz="-0.045 0 0.148" rpy="0 0 0"/>
 			<geometry name="pioneer_geom">
 				<mesh filename="package://p2os_urdf/meshes/p3dx_meshes/chassis.stl"/>
@@ -37,8 +37,13 @@
 		</collision>
 	</link>
 
-<!-- Top -->
-	<link name="top_plate">
+    <joint name="base_top_joint" type="fixed">
+		<origin xyz="-0.045 0 0.234" rpy="0 0 0"/>
+		<axis xzy="0 0 1"/>
+		<parent link="base_link"/>
+		<child link="top_plate"/>
+	</joint>
+	<link name="base_top">
 		<inertial>
 			<mass value="0"/>	
 			<origin xyz="0 0 0"/>
@@ -46,7 +51,7 @@
 				 iyy="1" iyz="0"
  				izz="1"/>
 		</inertial>
-		<visual name="base_visual">
+		<visual>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
 			<geometry name="pioneer_geom">
 				<mesh filename="package://p2os_urdf/meshes/p3dx_meshes/top.stl"/>
@@ -62,12 +67,6 @@
 			</geometry>
 		</collision>
 	</link>
-	
-	<joint name="base_top_joint" type="fixed">
-		<origin xyz="-0.045 0 0.234" rpy="0 0 0"/>
-		<parent link="base_link"/>
-		<child link="top_plate"/>
-	</joint>
 
 
 <!-- Swivel -->
@@ -204,6 +203,11 @@
 		<child link="front_sonar"/>
 	</joint>
 
+	<joint name="base_back_joint" type="fixed">
+		<origin xyz="0.109 0 0.209" rpy="0 0 0"/>
+		<parent link="base_link"/>
+		<child link="back_sonar"/>
+	</joint>
 	<link name="back_sonar">
 		<inertial>
 			<mass value="0"/>	
@@ -228,11 +232,12 @@
 		</collision>
 	</link>
 
-	<joint name="base_back_joint" type="fixed">
-		<origin xyz="0.109 0 0.209" rpy="0 0 0"/>
-		<parent link="base_link"/>
-		<child link="back_sonar"/>
-	</joint>
+	
+
+	<create>
+	<back_sonar parent="base_link"/>
+  	<top_plate  parent="base_link"/>
+  	</create>
 
 <gazebo>
 	<controller:differential_position2d name="controller1">
