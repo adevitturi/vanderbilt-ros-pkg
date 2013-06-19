@@ -12,7 +12,7 @@ A utility to control the pioneer robots and view their locations.
 p2os
 ====
 
-Modified to work with ROS groovy.
+Modified to work with ROS groovy. The stack has a [home](https://github.com/allenh1/p2os) of its own.
 
 tcp_command
 ===========
